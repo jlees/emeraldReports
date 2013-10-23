@@ -1,0 +1,33 @@
+@(reportNames: scala.collection.mutable.ArrayBuffer[String])
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script type="text/javascript">
+            var reportNameIndex = 0;
+            var reportNames = [];
+        @for(reportName <- reportNames){
+            reportNames[reportNames.length] = '@reportName';
+        }
+        window.setInterval(changeReport, 5000);
+        function changeReport() {
+            if (reportNameIndex >= reportNames.length){
+               reportNameIndex = 0; 
+            }
+            var reportName = reportNames[reportNameIndex];
+            var reportUrl = '/assets/reports/' + reportName;
+            $('#reportIframe').attr('src', reportUrl);
+            reportNameIndex = reportNameIndex + 1;
+        }
+        </script>
+    </head>
+    <body>
+<iframe id="reportIframe" src="" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>        
+    </body>
+</html>
+
